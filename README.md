@@ -7,7 +7,7 @@ This script automates the process of docking ligands to a receptor using either 
 Before using this script, ensure the following dependencies are installed:
 
 1. **RDKit**: Required for ligand preparation, including 3D structure generation and force field optimization.
-   - Install rdkit via pip
+   - Install RDKit via pip:
        ```bash
        pip install rdkit
        ```
@@ -37,9 +37,34 @@ pip install rdkit
 ### Additional tips
 Ensure that the executables for **AutoDock Vina** or **Smina** are accessible from your command line. The default paths are expected to be in the system's `PATH` or can be specified directly when running the script.
 
-## Usage of docking.py script
+## Usage of `docking_script.py`
 
-### Command-line Arguments
+This script can be run interactively or via the command line, depending on the user's preference. Below are the two usage methods:
+
+### 1. Interactive Usage (Command-line Interactive Mode)
+This method guides the user through the ligand and receptor preparation, docking setup, and execution interactively. You will be prompted to input various parameters such as receptor and ligand file paths, docking box dimensions, and other options.
+
+To run the interactive mode, use the following command:
+```bash
+python docking_script.py
+```
+
+#### Prompts
+You will be prompted to enter the following details:
+- **Receptor File Path** (PDB format).
+- **Ligand File Path** (PDB, MOL2, SDF format, or SMILES string).
+- **Docking Box Center** (x, y, z coordinates).
+- **Docking Box Size** (x, y, z dimensions).
+- **Output File Name** (optional, default: `docked`).
+- **Exhaustiveness** (default: 8).
+- **Number of CPUs** (default: 1).
+- **Force Field** (for ligand preparation: `mmff` or `uff`).
+- **Receptor and Ligand Prepared Status** (whether they are already in pdbqt format).
+- **Docking Program** (choose between `vina` or `smina`).
+- **Executable Paths** for Vina and Smina (if not in PATH).
+- **Prepare Receptor Path** (path to the `prepare_receptor` script).
+
+### 2. Command-line Arguments (Non-Interactive Mode)
 The script can be executed via the command line with the following arguments:
 
 ```bash
@@ -73,38 +98,28 @@ python docking_script.py --receptor receptor.pdb --ligand ligand.sdf --center 0 
 
 This command will perform docking using **AutoDock Vina** and save the results in the `docked_results.pdbqt` file.
 
-##Usage of Interactive docking_interactive.py scipt:
-
-To use the script interactively, run the following command:
-
-```bash
-python3 docking_script.py
-```
-
-This will launch an interactive session where the script will prompt you to enter the following information:
-
-- **Receptor file path** (PDB format)
-- **Ligand file path** (PDB, MOL2, SDF format) or **SMILES string**
-- **Docking box center** (x, y, z coordinates)
-- **Docking box size** (x, y, z dimensions)
-- **Output file name** (default: `docked`)
-- **Exhaustiveness** of the docking search (default: `8`)
-- **Number of CPUs** to use (default: `1`)
-- **Force field** for ligand preparation (default: `mmff`)
-- **Receptor preparation status** (whether it's already in pdbqt format)
-- **Ligand preparation status** (whether it's already in pdbqt format)
-- **Docking program** (choose either `vina` or `smina`, default: `vina`)
-- **Path to Vina executable** (if using Vina)
-- **Path to Smina executable** (if using Smina)
-- **Path to the `prepare_receptor` script** from the ADFR suite
-- **Output directory** to save the results (default: `docked_output`)
-
-The script will then proceed with ligand and receptor preparation, docking, and saving the results in the specified output directory.
-
 ## Output
 
 The output will include:
-- Docked ligand structures in PDBQT format in a separate folder in the same working directory
-- sdf and pdbqt files of prepared ligand in a separate folder in the same working directory (not created when --ligand_prepared is set to True)
-- pdbqt file of prepared receptor in a separated folder in the same working directory (not created when --receptor_prepared is set to True)
+- Docked ligand structures in PDBQT format in a separate folder in the same working directory.
+- SDF and PDBQT files of the prepared ligand in a separate folder in the same working directory (not created when `--ligand_prepared` is set to True).
+- PDBQT file of the prepared receptor in a separate folder in the same working directory (not created when `--receptor_prepared` is set to True).
+
+## Troubleshooting
+
+- **Error: "prepare_receptor not found"**  
+  Ensure `prepare_receptor` from AutoDockTools is correctly installed and in PATH.
   
+- **`obabel: command not found`**  
+  Install Open Babel:
+    ```bash
+    sudo apt install openbabel
+    ```
+
+- **Vina or Smina executable not found**  
+  Provide the full path to the executable when prompted or add them to PATH.
+
+## Customization
+
+- **Default paths and parameters** can be customized within the script by modifying default values in the `dock_interactive()` function.
+
