@@ -16,7 +16,7 @@ Before using this script, ensure the following dependencies are installed:
    - Install Vina from [here](https://vina.scripps.edu/downloads/)
 
 3. **Smina**: An open-source fork of AutoDock Vina, used as an alternative docking tool.
-   - Install Smina from [here]([https://github.com/glennon/smina](https://sourceforge.net/projects/smina/))
+   - Install Smina from [here]([https://github.com/glennon/smina](https://sourceforge.net/projects/smina/)
 
 4. **ADFR Suite**: A suite of tools for molecular docking.
    - Install ADFR Suite from [here](https://ccsb.scripps.edu/adfr/downloads/)
