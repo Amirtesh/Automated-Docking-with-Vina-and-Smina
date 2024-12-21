@@ -37,16 +37,16 @@ pip install rdkit
 ### Additional tips
 Ensure that the executables for **AutoDock Vina** or **Smina** are accessible from your command line. The default paths are expected to be in the system's `PATH` or can be specified directly when running the script.
 
-## Usage of `docking_script.py`
+## Usage
 
-This script can be run interactively or via the command line, depending on the user's preference. Below are the two usage methods:
+The process of file preparation and docking can be run either through the command line or through a simple interactive interface.
 
 ### 1. Interactive Usage (Command-line Interactive Mode)
 This method guides the user through the ligand and receptor preparation, docking setup, and execution interactively. You will be prompted to input various parameters such as receptor and ligand file paths, docking box dimensions, and other options.
 
 To run the interactive mode, use the following command:
 ```bash
-python docking_script.py
+python3 docking_interactive.py
 ```
 
 #### Prompts
@@ -68,7 +68,7 @@ You will be prompted to enter the following details:
 The script can be executed via the command line with the following arguments:
 
 ```bash
-python3 docking_script.py --receptor <path_to_receptor.pdb> --ligand <path_to_ligand.sdf> --center <x_center y_center z_center> --size <x_size y_size z_size> [options]
+python3 docking.py --receptor <path_to_receptor.pdb> --ligand <path_to_ligand.sdf> --center <x_center y_center z_center> --size <x_size y_size z_size> [options]
 ```
 
 #### Required Arguments:
