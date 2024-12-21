@@ -72,7 +72,7 @@ python3 docking.py --receptor <path_to_receptor.pdb> --ligand <path_to_ligand.sd
 ```
 
 #### Required Arguments:
-- `--receptor`: Path to the receptor file (PDB format).
+- `--receptor`: Path to the receptor file (PDB format or pdbqt format).
 - `--ligand`: Path to the ligand file (PDB, MOL2, or SDF format) or a ligand SMILES string.
 - `--center`: The center of the docking box in the format `[x, y, z]`.
 - `--size`: The size of the docking box in the format `[x, y, z]`.
