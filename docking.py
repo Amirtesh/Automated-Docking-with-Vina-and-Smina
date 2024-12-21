@@ -1,10 +1,11 @@
+#!/usr/bin/python3
 import os
 import subprocess
 import argparse
 from rdkit import Chem
 from rdkit.Chem import AllChem
 
-def ligand_prep(lig,output_directory='ligand_output',ligand_name='ligand',ff='mmff'):
+def ligand_prep(lig,output_directory='ligand_output',ligand_name='ligand',ff=None):
     if not os.path.exists(output_directory):
         os.makedirs(output_directory)
     
@@ -26,12 +27,14 @@ def ligand_prep(lig,output_directory='ligand_output',ligand_name='ligand',ff='mm
     if mol.GetNumConformers() == 0:
         AllChem.EmbedMolecule(mol,AllChem.ETKDG())
     
-    if ff.lower() == 'mmff':
-        AllChem.MMFFOptimizeMolecule(mol)
-    elif ff.lower() == 'uff':
-        AllChem.UFFOptimizeMolecule(mol)
-    else:
-        raise ValueError("Unsupported force field. Choose 'mmff' or 'uff'.")
+    if ff is not None:
+    
+        if ff.lower() == 'mmff':
+            AllChem.MMFFOptimizeMolecule(mol)
+        elif ff.lower() == 'uff':
+            AllChem.UFFOptimizeMolecule(mol)
+        else:
+            raise ValueError("Unsupported force field. Choose 'mmff' or 'uff'.")
 
     sdf_path=os.path.join(output_directory,f"{ligand_name}.sdf")
     with Chem.SDWriter(sdf_path) as writer:
@@ -72,7 +75,7 @@ def receptor_prep(rec,output_directory='receptor_output',receptor_name='receptor
     return receptor_output
 
 
-def dock(receptor,ligand,center,size,out='docked',exhaustiveness=8,cpu=1,ff='mmff',receptor_prepared=False,
+def dock(receptor,ligand,center,size,out='docked',exhaustiveness=8,cpu=1,ff=None,receptor_prepared=False,
          ligand_prepared=False,output_directory='docked_output',docking_program='vina',vina_path='vina', 
          smina_path='smina',prepare_receptor_path='prepare_receptor'):
     
