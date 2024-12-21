@@ -76,7 +76,7 @@ def receptor_prep(rec, output_directory='receptor_output', receptor_name='recept
 def dock_interactive():
     print("\nWelcome to Interactive Docking Setup!\n")
     
-    receptor=input("Enter receptor file path (PDB format): ")
+    receptor=input("Enter receptor file path (PDB format or PDBQT format): ")
     ligand=input("Enter ligand file path (PDB, MOL2, SDF) or SMILES string: ")
     center_x=float(input("Enter docking box center (x): "))
     center_y=float(input("Enter docking box center (y): "))
