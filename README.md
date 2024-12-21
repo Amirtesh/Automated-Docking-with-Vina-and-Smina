@@ -37,7 +37,7 @@ pip install rdkit
 ### Additional tips
 Ensure that the executables for **AutoDock Vina** or **Smina** are accessible from your command line. The default paths are expected to be in the system's `PATH` or can be specified directly when running the script.
 
-## Usage
+## Usage of docking.py script
 
 ### Command-line Arguments
 The script can be executed via the command line with the following arguments:
@@ -72,6 +72,34 @@ python docking_script.py --receptor receptor.pdb --ligand ligand.sdf --center 0 
 ```
 
 This command will perform docking using **AutoDock Vina** and save the results in the `docked_results.pdbqt` file.
+
+##Usage of Interactive docking_interactive.py scipt:
+
+To use the script interactively, run the following command:
+
+```bash
+python3 docking_script.py
+```
+
+This will launch an interactive session where the script will prompt you to enter the following information:
+
+- **Receptor file path** (PDB format)
+- **Ligand file path** (PDB, MOL2, SDF format) or **SMILES string**
+- **Docking box center** (x, y, z coordinates)
+- **Docking box size** (x, y, z dimensions)
+- **Output file name** (default: `docked`)
+- **Exhaustiveness** of the docking search (default: `8`)
+- **Number of CPUs** to use (default: `1`)
+- **Force field** for ligand preparation (default: `mmff`)
+- **Receptor preparation status** (whether it's already in pdbqt format)
+- **Ligand preparation status** (whether it's already in pdbqt format)
+- **Docking program** (choose either `vina` or `smina`, default: `vina`)
+- **Path to Vina executable** (if using Vina)
+- **Path to Smina executable** (if using Smina)
+- **Path to the `prepare_receptor` script** from the ADFR suite
+- **Output directory** to save the results (default: `docked_output`)
+
+The script will then proceed with ligand and receptor preparation, docking, and saving the results in the specified output directory.
 
 ## Output
 
