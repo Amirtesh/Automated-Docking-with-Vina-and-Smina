@@ -13,7 +13,7 @@ Before using this script, ensure the following dependencies are installed:
        ```
 
 2. **AutoDock Vina**: A molecular docking tool for drug discovery, required for docking.
-   - Install Vina from [here](http://vina.scripps.edu/download.html](https://vina.scripps.edu/downloads/)
+   - Install Vina from [here](https://vina.scripps.edu/downloads/)
 
 3. **Smina**: An open-source fork of AutoDock Vina, used as an alternative docking tool.
    - Install Smina from [here]([https://github.com/glennon/smina](https://sourceforge.net/projects/smina/))
