@@ -58,7 +58,7 @@ You will be prompted to enter the following details:
 - **Output File Name** (optional, default: `docked`).
 - **Exhaustiveness** (default: 8).
 - **Number of CPUs** (default: 1).
-- **Force Field** (for ligand preparation: `mmff` or `uff`).
+- **Force Field** (for ligand preparation: `mmff` or `uff` or default None).
 - **Receptor and Ligand Prepared Status** (whether they are already in pdbqt format).
 - **Docking Program** (choose between `vina` or `smina`).
 - **Executable Paths** for Vina and Smina (if not in PATH).
@@ -81,7 +81,7 @@ python3 docking.py --receptor <path_to_receptor.pdb> --ligand <path_to_ligand.sd
 - `--out`: Output name for the docking results (default: `docked`).
 - `--exhaustiveness`: Exhaustiveness of the docking search (default: `8`).
 - `--cpu`: Number of CPU cores to use (default: `1`).
-- `--ff`: Force field for ligand preparation (default: `mmff`).
+- `--ff`: Force field for ligand preparation (default: None).
 - `--receptor_prepared`: Whether the receptor is already prepared (pdbqt format).
 - `--ligand_prepared`: Whether the ligand is already prepared (pdbqt format).
 - `--output_directory`: Directory to save docking results (default: `docked_output`).
