@@ -5,50 +5,51 @@ from rdkit import Chem
 from rdkit.Chem import AllChem
 
 
-def ligand_prep(lig, output_directory='ligand_output', ligand_name='ligand', ff='mmff'):
+def ligand_prep(lig,output_directory='ligand_output',ligand_name='ligand',ff=None):
     if not os.path.exists(output_directory):
         os.makedirs(output_directory)
-
+    
     if lig.endswith('.sdf') or lig.endswith('.mol'):
-        mol=Chem.MolFromMolFile(lig, removeHs=False)
+        mol=Chem.MolFromMolFile(lig,removeHs=False)
     elif lig.endswith('.mol2'):
         mol=Chem.MolFromMol2File(lig)
     elif lig.endswith('.pdb'):
         mol=Chem.MolFromPDBFile(lig)
-    elif lig.endswith('.smiles') or isinstance(lig, str):
+    elif lig.endswith('.smiles') or isinstance(lig,str):
         mol=Chem.MolFromSmiles(lig)
         mol=Chem.AddHs(mol)
     else:
         raise ValueError("Unsupported ligand format. Accepts .sdf, .mol2, .mol, .pdb, or SMILES format.")
-
+    
     if mol is None:
         raise ValueError(f"Failed to read ligand from {lig}")
-
+    
     if mol.GetNumConformers() == 0:
-        AllChem.EmbedMolecule(mol, AllChem.ETKDG())
+        AllChem.EmbedMolecule(mol,AllChem.ETKDG())
+    
+    if ff is not None:
+    
+        if ff.lower() == 'mmff':
+            AllChem.MMFFOptimizeMolecule(mol)
+        elif ff.lower() == 'uff':
+            AllChem.UFFOptimizeMolecule(mol)
+        else:
+            raise ValueError("Unsupported force field. Choose 'mmff' or 'uff'.")
 
-    if ff.lower() == 'mmff':
-        AllChem.MMFFOptimizeMolecule(mol)
-    elif ff.lower() == 'uff':
-        AllChem.UFFOptimizeMolecule(mol)
-    else:
-        raise ValueError("Unsupported force field. Choose 'mmff' or 'uff'.")
-
-    sdf_path=os.path.join(output_directory, f"{ligand_name}.sdf")
+    sdf_path=os.path.join(output_directory,f"{ligand_name}.sdf")
     with Chem.SDWriter(sdf_path) as writer:
         writer.write(mol)
 
-    ligand_pdbqt=os.path.join(output_directory, f"{ligand_name}.pdbqt")
+    ligand_pdbqt=os.path.join(output_directory,f"{ligand_name}.pdbqt")
     obabel_cmd=f"obabel {sdf_path} -O {ligand_pdbqt} --gen3d --partialcharge"
-
+    
     try:
-        subprocess.run(obabel_cmd, shell=True, check=True)
+        subprocess.run(obabel_cmd,shell=True,check=True)
     except subprocess.CalledProcessError as e:
         print("Error during ligand preparation.")
         print(e)
 
     return ligand_pdbqt
-
 
 
 def receptor_prep(rec, output_directory='receptor_output', receptor_name='receptor', prepare_receptor_path='prepare_receptor'):
@@ -88,7 +89,7 @@ def dock_interactive():
     out=input("Enter output file name (default 'docked'): ") or 'docked'
     exhaustiveness=int(input("Enter exhaustiveness (default 8): ") or 8)
     cpu=int(input("Enter number of CPUs (default 1): ") or 1)
-    ff=input("Force field for ligand preparation (mmff or uff, default mmff): ") or 'mmff'
+    ff=input("Force field for ligand preparation (mmff or uff, default None): ") or None
     
     receptor_prepared=input("Is the receptor already prepared (pdbqt)? (y/n): ").strip().lower() == 'y'
     ligand_prepared=input("Is the ligand already prepared (pdbqt)? (y/n): ").strip().lower() == 'y'
