@@ -51,7 +51,7 @@ python3 docking_interactive.py
 
 #### Prompts
 You will be prompted to enter the following details:
-- **Receptor File Path** (PDB format).
+- **Receptor File Path** (PDB format or PDBQT format).
 - **Ligand File Path** (PDB, MOL2, SDF format, or SMILES string).
 - **Docking Box Center** (x, y, z coordinates).
 - **Docking Box Size** (x, y, z dimensions).
@@ -89,14 +89,6 @@ python3 docking.py --receptor <path_to_receptor.pdb> --ligand <path_to_ligand.sd
 - `--vina_path`: Path to the Vina executable.
 - `--smina_path`: Path to the Smina executable.
 - `--prepare_receptor_path`: Path to the `prepare_receptor` script from the ADFR suite.
-
-### Example Command
-
-```bash
-python docking_script.py --receptor receptor.pdb --ligand ligand.sdf --center 0 0 0 --size 20 20 20 --out docked_results --docking_program vina --vina_path /path/to/vina
-```
-
-This command will perform docking using **AutoDock Vina** and save the results in the `docked_results.pdbqt` file.
 
 ## Output
 
